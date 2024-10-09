@@ -1,5 +1,8 @@
 package com.nour.ems_app.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.nour.ems_app.dto.EmployeeDto;
@@ -38,6 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return EmployeeMapper.mapToEmployeeDto(employeeById);
 
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employeeList = employeeRepository.findAll();
+        return employeeList.stream().map((employee) -> EmployeeMapper.mapToEmployeeDto(employee))
+                .collect(Collectors.toList());
     }
 
 }

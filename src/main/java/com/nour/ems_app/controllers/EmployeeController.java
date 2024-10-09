@@ -1,5 +1,7 @@
 package com.nour.ems_app.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,4 +38,10 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeById);
     }
 
+    // Build Get All Employees REST API
+    @GetMapping(path = "all")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        List<EmployeeDto> employeesList = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employeesList);
+    }
 }
