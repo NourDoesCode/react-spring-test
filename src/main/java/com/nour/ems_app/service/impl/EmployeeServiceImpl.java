@@ -3,6 +3,7 @@ package com.nour.ems_app.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.nour.ems_app.dto.EmployeeDto;
+import com.nour.ems_app.exceptions.ResourceNotFoundException;
 import com.nour.ems_app.mappers.EmployeeMapper;
 import com.nour.ems_app.models.Employee;
 import com.nour.ems_app.repositories.EmployeeRepository;
@@ -27,6 +28,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // we should return the dto entity to the client
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
+    }
+
+    @Override
+    public EmployeeDto getEmployeeById(Long employeeId) {
+
+        Employee employeeById = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee Does not   exist for id" + employeeId));
+
+        return EmployeeMapper.mapToEmployeeDto(employeeById);
+
     }
 
 }
